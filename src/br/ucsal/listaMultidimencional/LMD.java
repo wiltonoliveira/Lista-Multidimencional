@@ -9,7 +9,6 @@ public class LMD implements ILMD{
 		Noc novo = new Noc();
 		
 		novo.ini = null;
-		
 		novo.codigo = codigo;
 		novo.descricao = descricao;
 		
@@ -106,14 +105,12 @@ public class LMD implements ILMD{
 					aux.ini = novo;
 				} else {
 					No aux2 = aux.ini;
-					while(aux2 != null) {
+					while(aux2.prox != null) {
 						aux2 = aux2.prox;
 					}
-					
-					aux2 = novo;
+					aux2.prox = novo;
 				}
-				
-				
+								
 			}
 		}
 	}
@@ -139,11 +136,12 @@ public class LMD implements ILMD{
 	@Override
 	public void imprimeTudo() {
 		Noc aux = inicio;
+		No aux2 = new No();
 		
 		while (aux != null) {
 			System.out.print(aux.descricao + " ");
 			if(aux.ini != null) {
-				No aux2 = aux.ini;
+				aux2 = aux.ini;
 				while(aux2 != null) {
 					System.out.print("(" +aux2.descricao + " " + aux2.quantidade + ") ");
 					aux2 = aux2.prox;
@@ -157,8 +155,20 @@ public class LMD implements ILMD{
 
 	@Override
 	public void imprimeCategoria(int codigoCategoria) {
-		// TODO Auto-generated method stub
+		Noc aux = inicio;
 		
+		while(aux.prox != null && aux.codigo != codigoCategoria) {
+			aux = aux.prox;
+		}
+		
+		if(aux.codigo == codigoCategoria) {
+			System.out.print(aux.descricao + " ");
+			No aux2 = aux.ini;
+			while(aux2 != null) {
+				System.out.print("(" +aux2.descricao + " " + aux2.quantidade + ") ");
+				aux2 = aux2.prox;
+			}
+		}
 	}
 
 }
