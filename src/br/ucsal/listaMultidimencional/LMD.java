@@ -8,6 +8,8 @@ public class LMD implements ILMD{
 	public void insere(int codigo, String descricao) {
 		Noc novo = new Noc();
 		
+		novo.ini = null;
+		
 		novo.codigo = codigo;
 		novo.descricao = descricao;
 		
@@ -86,8 +88,34 @@ public class LMD implements ILMD{
 
 	@Override
 	public void insereNo(int codigoCategoria, int codigo, String descricao, int quantidade) {
-		// TODO Auto-generated method stub
+		if(inicio == null) {
+			System.out.println("Lista Vazia");
+		} else {
+			Noc aux = inicio;
 		
+			while(aux.prox != null && aux.codigo != codigoCategoria) {
+				aux = aux.prox;
+			}
+			
+			if (aux.codigo == codigoCategoria) {
+				No novo = new No();
+				novo.descricao = descricao;
+				novo.quantidade = quantidade;
+				
+				if(aux.ini == null) {
+					aux.ini = novo;
+				} else {
+					No aux2 = aux.ini;
+					while(aux2 != null) {
+						aux2 = aux2.prox;
+					}
+					
+					aux2 = novo;
+				}
+				
+				
+			}
+		}
 	}
 
 	@Override
@@ -114,6 +142,13 @@ public class LMD implements ILMD{
 		
 		while (aux != null) {
 			System.out.print(aux.descricao + " ");
+			if(aux.ini != null) {
+				No aux2 = aux.ini;
+				while(aux2 != null) {
+					System.out.print("(" +aux2.descricao + " " + aux2.quantidade + ") ");
+					aux2 = aux2.prox;
+				}
+			}
 			aux = aux.prox;
 		}
 		
