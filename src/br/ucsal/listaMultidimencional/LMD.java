@@ -25,8 +25,30 @@ public class LMD implements ILMD{
 
 	@Override
 	public void remove(int codigo) {
-		// TODO Auto-generated method stub
-		
+		if(inicio==null) {
+			System.out.println("Lista vazia!");
+		}else {
+			Noc ant = null;
+			Noc aux = inicio;
+			while(aux.prox!=null&&aux.codigo!=codigo) {
+				ant=aux;
+				aux=aux.prox;
+			}
+			if(aux.codigo==codigo) {
+				if(ant==null) {
+					inicio=inicio.prox;
+				}else if(aux.prox==null) {
+					ant.prox=null;
+					aux=null;
+				}else {
+					ant.prox=aux.prox;
+					aux=null;
+				}
+			}else {
+				System.out.println("Elemento não encontrado!");
+			}
+			
+		}
 	}
 
 	@Override
@@ -35,7 +57,7 @@ public class LMD implements ILMD{
 			System.out.println("Lista Vazia");
 		} else {
 			Noc aux = inicio;
-			while(aux.prox != null && aux.prox.codigo != codigo) {
+			while(aux.prox != null && aux.codigo != codigo) {
 				aux = aux.prox;
 			}
 			if(aux.codigo == codigo) {
