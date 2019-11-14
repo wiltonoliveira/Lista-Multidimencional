@@ -100,7 +100,7 @@ public class LMD implements ILMD{
 				No novo = new No();
 				novo.descricao = descricao;
 				novo.quantidade = quantidade;
-				
+				novo.codigo = codigo;
 				if(aux.ini == null) {
 					aux.ini = novo;
 				} else {
@@ -117,19 +117,101 @@ public class LMD implements ILMD{
 
 	@Override
 	public void removeNo(int codigoCategoria, int codigo) {
-		// TODO Auto-generated method stub
-		
-	}
-
+		if(inicio == null) {
+			System.out.println("Lista Vazia");
+		} else {
+			Noc aux = inicio;
+			while(aux.prox != null && aux.codigo != codigoCategoria) {
+				aux = aux.prox;
+			}
+			
+			if (aux.codigo == codigoCategoria) {
+				if(aux.ini == null) {
+					System.out.println("Elemento não encontrado!");
+				} else {
+				No ant = null;
+				No aux2 = aux.ini;
+				
+				while(aux2.prox != null && aux2.codigo != codigo) {
+					ant = aux2;
+					aux2 = aux2.prox;
+				}
+				
+				if(aux2.codigo == codigo) {
+					if(ant == null) {
+						aux.ini = aux.ini.prox;
+					} else if(aux2.prox == null) {
+						ant.prox = null;
+						aux2 = null;
+					} else {
+						ant.prox = aux2.prox;
+						aux2 = null;
+					}
+				} else {
+					System.out.println("Elemento não encontrado");
+				}
+				}
+			}
+			}	
+		}
 	@Override
 	public No buscarNo(int codigoCategoria, int codigo) {
-		// TODO Auto-generated method stub
+		if(inicio == null) {
+			System.out.println("Lista Vazia");
+		} else {
+			Noc aux = inicio;
+			while(aux != null && aux.codigo != codigoCategoria) {
+				aux = aux.prox;
+			}
+			
+			if(aux.codigo == codigoCategoria) {
+				if(aux.ini == null) {
+					System.out.println("Categoria Vazia");
+				} else {
+					No aux2 = aux.ini;
+					while(aux2.prox != null && aux2.codigo != codigo) {
+						aux2 = aux2.prox;
+					}
+					
+					if(aux2.codigo == codigo) {
+						return aux2;
+					}
+				}
+			}
+		}
+		
 		return null;
 	}
 
 	@Override
 	public void alterarNo(int codigoCategoria, int codigo, String novaDescricao, int novaQuantidade) {
-		// TODO Auto-generated method stub
+		if(inicio == null) {
+			System.out.println("Lista Vazia");
+		} else {
+			Noc aux = inicio;
+			while(aux.prox != null && aux.codigo != codigoCategoria) {
+				aux = aux.prox;
+			}
+			
+			if(aux.codigo == codigoCategoria) {
+				if(aux.ini == null) {
+					System.out.println("Categoria Vazia");
+				} else {
+					No aux2 = aux.ini;
+					while(aux2.prox != null && aux2.codigo != codigo) {
+						System.out.println(aux.codigo +" " +aux.descricao);
+						aux2 = aux2.prox;
+					}
+					
+					if(aux2.codigo == codigo) {
+						aux2.descricao = novaDescricao;
+						aux2.quantidade = novaQuantidade;
+					} else {
+						System.out.println("Elemento não encontrado");
+					}
+				}
+			}
+		}
 		
 	}
 
@@ -137,7 +219,7 @@ public class LMD implements ILMD{
 	public void imprimeTudo() {
 		Noc aux = inicio;
 		No aux2 = new No();
-		
+		System.out.print("Resultado: ");
 		while (aux != null) {
 			System.out.print(aux.descricao + " ");
 			if(aux.ini != null) {
@@ -150,13 +232,14 @@ public class LMD implements ILMD{
 			aux = aux.prox;
 		}
 		
-		System.out.println();
+		System.out.println("\n");
 	}
 
 	@Override
 	public void imprimeCategoria(int codigoCategoria) {
 		Noc aux = inicio;
 		
+		System.out.print("Resultado: ");
 		while(aux.prox != null && aux.codigo != codigoCategoria) {
 			aux = aux.prox;
 		}
@@ -168,7 +251,9 @@ public class LMD implements ILMD{
 				System.out.print("(" +aux2.descricao + " " + aux2.quantidade + ") ");
 				aux2 = aux2.prox;
 			}
+		} else {
+			System.out.println("Categoria não encontrada!");
 		}
+		System.out.println("\n");
 	}
-
 }
